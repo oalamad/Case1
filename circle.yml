@@ -1,0 +1,12 @@
+general:
+   artifacts:
+     - $CIRCLE_TEST_REPORTS
+     - target
+     
+test:
+  override:
+    - mvn clean install
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+<!--This will create the file where the results can be shown-->
